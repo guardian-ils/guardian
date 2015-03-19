@@ -6,7 +6,7 @@ Guardian
 ![Process](https://img.shields.io/badge/Process-building-lightgrey.svg?style=plastic)
 Guardian is a Open Source Software [Integrated Library System (ILS)] (http://en.wikipedia.org/wiki/Integrated_library_system).
 It is designed for school,
-so it is using Linux, [Apache](http://httpd.apache.org/) / [Nginx](http://nginx.net/), [MySQL](http:/www.mysql.com) and [PHP](http://php.net) / [HHVM](http://hhvm.com).
+so it is using Linux, [Apache](http://httpd.apache.org/) / [Nginx](http://nginx.net/), [MySQL](http://www.mysql.com/) and [PHP](http://php.net) / [HHVM](http://hhvm.com).
 
 License
 --------------------

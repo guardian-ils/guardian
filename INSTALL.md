@@ -3,17 +3,18 @@ Install or Upgrade Guardian
 
 Requirement
 ---------------------
-+ [Nginx](http://nginx.org/en/)
-+ [MySQL](http://www.mysql.com/) &gt;= 5 
-+ [PHP](http://php.net) / [HHVM](http://hhvm.com)
++ [Apache](http://httpd.apache.org) or [Nginx](http://nginx.org/en/)
++ [MySQL](http://www.mysql.com/) &gt;= 5
++ [PHP](http://php.net/) or [HHVM](http://hhvm.com/)
++ [Composer](http://getcomposer.org/) (Optional)
 
 
 Install
 ---------------------
 
 ##Preparing
+Install all the requirement.
 Create a MySQL user and database.
-
 
 ##Unix / Linux / BSD
 Run the install.sh
