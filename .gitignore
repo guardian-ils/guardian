@@ -1,6 +1,5 @@
 /.idea/
 /vendor/
 *.mwb.bak
-
-
+/design/marcxml.xsd
 
