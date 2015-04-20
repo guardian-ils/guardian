@@ -1,0 +1,7 @@
+{
+  "driver" : "pdo_mysql",
+  "user" : "root",
+  "password" : "julyjasmine",
+  "host" : "localhost",
+  "dbname" : "guardian"
+}
