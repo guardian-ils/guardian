@@ -1,0 +1,17 @@
+{
+  "name": "tonyhhyip/guardian",
+  "description": "A ILS for School Library",
+  "minimum-stability": "stable",
+  "license": "GPL-3.0+",
+  "authors": [
+    {
+      "name": "Tony Yip",
+      "email": "tony@opensource.hk"
+    }
+  ],
+  "autoload" : {
+      "psr-4" : {
+        "Guardian\\" : "src/"
+      }
+  }
+}
