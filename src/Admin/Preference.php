@@ -40,7 +40,7 @@ class Preference
         $stmt = $query->execute();
         if (0 === $stmt->rowCount()) {
             $msg = sprintf('Config %s is not found in %s::%s', $variable, __CLASS__, __METHOD__);
-            throw new NotFoundException($msg);
+            throw new PreferenceNotFoundException($msg);
         }
         list($value) = $stmt->fetch(PDO::FETCH_NUM);
         $stmt->closeCursor();
