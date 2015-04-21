@@ -2,9 +2,10 @@
 
 namespace Guardian\Admin;
 
-use Exception;
 
-class PreferenceNotFoundException extends Exception
+use Guardian\Exception\NotFoundException;
+
+class PreferenceNotFoundException extends NotFoundException
 {
 
 }
