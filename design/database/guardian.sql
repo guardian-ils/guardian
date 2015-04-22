@@ -56,7 +56,7 @@ ENGINE = InnoDB;
 -- Table `guardian`.`itemtypes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `guardian`.`itemtypes` (
-  `item_type` VARCHAR(10) NOT NULL COMMENT 'unique key, a code associated with the item type',
+  `item_type` VARCHAR(16) NOT NULL COMMENT 'unique key, a code associated with the item type',
   `description` TEXT NULL DEFAULT NULL COMMENT 'a plain text explanation of the item type',
   `rental_charge` DOUBLE NULL DEFAULT NULL COMMENT 'the amount charged when this item is checked out/issued',
   `not_for_loan` BIT NULL DEFAULT 0 COMMENT '1 if the item is not for loan, 0 if the item is available for loan',
@@ -88,14 +88,6 @@ CREATE TABLE IF NOT EXISTS `guardian`.`auth_types` (
   `auth_tag_to_report` VARCHAR(3) NULL,
   `sammary` TEXT NULL,
   PRIMARY KEY (`auth_type_code`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `guardian`.`table1`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `guardian`.`table1` (
-)
 ENGINE = InnoDB;
 
 
@@ -158,7 +150,7 @@ ENGINE = InnoDB;
 -- Table `guardian`.`borrowers`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `guardian`.`borrowers` (
-  `borrower_id` INT NOT NULL AUTO_INCREMENT COMMENT 'primary key, Guaridan assigned ID number for patrons/borrowers',
+  `borrower_id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'primary key, Guaridan assigned ID number for patrons/borrowers',
   `card_number` VARCHAR(16) NULL DEFAULT NULL COMMENT 'unique key, library assigned ID number for patrons/borrowers',
   `surname` VARCHAR(64) NOT NULL COMMENT 'patron/borrower\'s last name (surname)',
   `firstname` VARCHAR(128) NOT NULL COMMENT 'patron/borrower\'s first name',
@@ -168,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `guardian`.`borrowers` (
   `othername` VARCHAR(64) NULL DEFAULT NULL COMMENT 'any other names associated with the patron/borrower',
   `initials` VARCHAR(16) NULL DEFAULT NULL,
   `date_of_birth` DATE NOT NULL,
-  `category_code` VARCHAR(256) NOT NULL,
+  `category_code` VARCHAR(16) NOT NULL,
   `branch_id` VARCHAR(16) NOT NULL,
   `date_enroll` DATE NOT NULL,
   `date_expire` DATE NOT NULL,
@@ -198,7 +190,7 @@ ENGINE = InnoDB;
 -- Table `guardian`.`biblio`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `guardian`.`biblio` (
-  `biblio_id` INT NOT NULL AUTO_INCREMENT COMMENT 'unique identifier assigned to each bibliographic record',
+  `biblio_id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'unique identifier assigned to each bibliographic record',
   `framework_code` VARCHAR(4) NOT NULL COMMENT 'foriegn key from the biblio_framework table to identify which framework was used in cataloging this record',
   `author` VARCHAR(256) NULL DEFAULT NULL COMMENT 'statement of responsibility from MARC record (100$a in MARC21)',
   `title` VARCHAR(512) NULL COMMENT 'title (without the subtitle) from the MARC record (245$a in MARC21)',
@@ -223,19 +215,117 @@ ENGINE = InnoDB;
 -- Table `guardian`.`budget`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `guardian`.`budget` (
-)
+  `budget_id` INT NOT NULL COMMENT 'primary key and unique number assigned to each fund by Guardian',
+  `parent_id` INT NULL DEFAULT NULL COMMENT '	if this fund is a child of another this will include the parent id (aqbudgets.budget_id)',
+  `code` VARCHAR(32) NOT NULL COMMENT 'code assigned to the fund by the user',
+  `name` VARCHAR(64) NULL DEFAULT NULL COMMENT 'name assigned to the fund by the user',
+  `branch_id` VARCHAR(16) NOT NULL COMMENT 'branch that this fund belongs to (branches.branchcode)',
+  `amount` DECIMAL(28,2) NOT NULL DEFAULT 0 COMMENT 'total amount for this fund',
+  `note` TEXT NULL DEFAULT NULL,
+  `last_modified` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'date and time this fund was last touched (created or modified)',
+  `budget_periods_id` INT UNSIGNED NOT NULL,
+  `borrower_id` INT UNSIGNED NOT NULL,
+  `permission` INT NOT NULL COMMENT 'level of permission for this fund (used only by the owner, only by the library, or anyone)',
+  PRIMARY KEY (`budget_id`),
+  INDEX `fk_budget_1_idx` (`branch_id` ASC),
+  INDEX `fk_budget_2_idx` (`budget_periods_id` ASC),
+  INDEX `fk_budget_3_idx` (`borrower_id` ASC),
+  CONSTRAINT `fk_budget_1`
+    FOREIGN KEY (`branch_id`)
+    REFERENCES `guardian`.`branches` (`branch_id`)
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_budget_2`
+    FOREIGN KEY (`budget_periods_id`)
+    REFERENCES `guardian`.`buget_periods` (`buget_periods_id`)
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_budget_3`
+    FOREIGN KEY (`borrower_id`)
+    REFERENCES `guardian`.`borrowers` (`borrower_id`)
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `guardian`.`default_circ_rule`
+-- Table `guardian`.`default_branch_circ_rule`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `guardian`.`default_circ_rule` (
-  `singleton` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `guardian`.`default_branch_circ_rule` (
+  `branch_id` VARCHAR(16) NOT NULL,
   `max_issue` INT UNSIGNED NOT NULL,
   `hold_allowed` INT UNSIGNED NOT NULL,
   `return_branch` VARCHAR(16) NOT NULL,
-  PRIMARY KEY (`singleton`))
+  PRIMARY KEY (`branch_id`),
+  CONSTRAINT `fk_default_branch_circ_rule_1`
+    FOREIGN KEY (`branch_id`)
+    REFERENCES `guardian`.`branches` (`branch_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `guardian`.`marc_matchers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `guardian`.`marc_matchers` (
+  `marc_matchers_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `code` VARCHAR(16) NOT NULL,
+  `description` TEXT NOT NULL,
+  `record_type` VARCHAR(16) NOT NULL DEFAULT 'biblio',
+  `holding` INT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`marc_matchers_id`),
+  INDEX `fk_marc_matchers_1_idx` (`code` ASC),
+  INDEX `code` (`code` ASC),
+  INDEX `record_type` (`record_type` ASC),
+  CONSTRAINT `fk_marc_matchers_1`
+    FOREIGN KEY (`code`)
+    REFERENCES `guardian`.`ethnicity` (`code`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `guardian`.`biblioitems`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `guardian`.`biblioitems` (
+  `biblioitems_id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'primary key, unique identifier assigned by Guardian',
+  `biblio_id` INT UNSIGNED NOT NULL COMMENT 'foreign key linking this table to the biblio table',
+  `volume` VARCHAR(16) NULL DEFAULT NULL,
+  `copy` VARCHAR(16) NULL DEFAULT NULL,
+  `item_type` VARCHAR(16) NOT NULL COMMENT 'biblio level item type (MARC21 942$c)',
+  `isbn` VARCHAR(13) NULL DEFAULT NULL COMMENT 'ISBN (MARC21 020$a)',
+  `issn` VARCHAR(13) NULL DEFAULT NULL COMMENT 'ISSN (MARC21 022$a)',
+  `total_issue` INT UNSIGNED NOT NULL DEFAULT 0,
+  `marc` LONGBLOB NULL DEFAULT NULL,
+  `marcxml` MEDIUMTEXT NOT NULL,
+  PRIMARY KEY (`biblioitems_id`),
+  INDEX `fk_biblioitems_1_idx` (`biblio_id` ASC),
+  INDEX `fk_biblioitems_2_idx` (`item_type` ASC),
+  CONSTRAINT `fk_biblioitems_1`
+    FOREIGN KEY (`biblio_id`)
+    REFERENCES `guardian`.`biblio` (`biblio_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_biblioitems_2`
+    FOREIGN KEY (`item_type`)
+    REFERENCES `guardian`.`itemtypes` (`item_type`)
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `guardian`.`preference`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `guardian`.`preference` (
+  `variable` VARCHAR(64) NOT NULL COMMENT 'system preference name',
+  `value` TEXT NOT NULL COMMENT 'value',
+  `type` VARCHAR(8) NOT NULL COMMENT 'type of question this preference asks (multiple choice, plain text, yes or no, etc)',
+  `options` VARCHAR(64) NULL COMMENT 'Options for user',
+  `description` TEXT NULL,
+  PRIMARY KEY (`variable`))
 ENGINE = InnoDB;
 
 
