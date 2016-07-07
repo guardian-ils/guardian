@@ -1,4 +1,4 @@
-var elixir = require('laravel-elixir');
+import elixir from 'laravel-elixir';
 
 /*
  |--------------------------------------------------------------------------
@@ -11,6 +11,6 @@ var elixir = require('laravel-elixir');
  |
  */
 
-elixir(function(mix) {
-    mix.sass('app.scss');
+elixir((mix) => {
+  mix.phpUnit();
 });
