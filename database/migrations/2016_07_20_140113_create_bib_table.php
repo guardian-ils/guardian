@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -15,10 +16,12 @@ class CreateBibTable extends Migration
         Schema::create('biblios', function (Blueprint $table) {
             $table->uuid('id');
             $table->text('title');
-            $table->text('author');
+            $table->text('author')->nullable()->default(null);
             $table->text('call_number');
             $table->jsonb('marc');
             $table->timestamps();
+
+            $table->index(['title', 'author', 'call_number'], 'biblio_data_index');
         });
     }
 
@@ -29,6 +32,9 @@ class CreateBibTable extends Migration
      */
     public function down()
     {
+        Schema::table('biblios', function (Blueprint $table) {
+            $table->dropIndex('biblio_data_index');
+        });
         Schema::drop('biblios');
     }
 }
