@@ -1,0 +1,25 @@
+language: php
+
+sudo: required
+dist: trusty
+group: edge
+
+php:
+  - '5.5'
+  - '5.6'
+  - '7.0'
+  - nightly
+  - hhvm-3.9
+  - hhvm-3.12
+  - hhvm-nightly
+
+before_script:
+  - composer self-update --stable
+
+install:
+  - composer install --prefer-dist
+
+script:
+  - cp -pdf .env.example .env
+  - php artisan key:generate
+  - ./vendor/bin/phpunit
