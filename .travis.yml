@@ -13,16 +13,36 @@ php:
   - hhvm-3.12
   - hhvm-nightly
 
+env:
+  # to properly install phpX-pgsql
+  - DB=pgsql
+
 addons:
   postgresql: '9.4'
 
+matrix:
+  exclude:
+    # PDO driver for pgsql is unsupported by HHVM (3rd party install for support)
+    - php: hhvm-3.9
+      env: DB=pgsql
+    - php: hhvm-3.12
+      env: DB=pgsql
+    - php: hhvm-nightly
+      env: DB=pgsql
+
 before_install:
   - composer self-update --stable
+  - export DB_CONNECTION=pgsql
+  - export DB_HOST=127.0.0.1
+  - export DB_DATABASE=travis
+  - export DB_USERNAME=travis
+  - export DB_PASSWORD=""
 
 install:
   - composer install --prefer-dist
   - cp -pdf .env.example .env
   - php artisan key:generate
+  - php artisan migrate
 
 script:
   - ./vendor/bin/phpunit
