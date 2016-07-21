@@ -13,6 +13,9 @@ php:
   - hhvm-3.12
   - hhvm-nightly
 
+addons:
+  postgresql: '9.4'
+
 before_install:
   - composer self-update --stable
 
