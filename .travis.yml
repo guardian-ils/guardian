@@ -4,6 +4,11 @@ sudo: required
 dist: trusty
 group: edge
 
+cache:
+  directories:
+    - $HOME/.composer
+    - vendor
+
 php:
   - '5.5'
   - '5.6'
@@ -15,6 +20,7 @@ php:
 
 before_script:
   - composer self-update --stable
+  - sudo php hack
 
 install:
   - composer install --prefer-dist
@@ -22,4 +28,5 @@ install:
 script:
   - cp -pdf .env.example .env
   - php artisan key:generate
-  - ./vendor/bin/phpunit
+  - vendor/bin/phpunit
+
