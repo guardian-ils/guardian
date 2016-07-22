@@ -20,6 +20,8 @@ class CreateItemTable extends Migration
             $table->string('isbn', 13)->nullable();
             $table->uuid('location_id')->references('id')->on('locations');
             $table->timestamps();
+
+            $table->primary('id');
         });
     }
 

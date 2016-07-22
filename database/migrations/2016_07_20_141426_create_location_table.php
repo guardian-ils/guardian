@@ -19,6 +19,7 @@ class CreateLocationTable extends Migration
             $table->uuid('branch_id')->references('id')->on('branches');
             $table->timestamps();
 
+            $table->primary('id');
             $table->unique('name');
         });
     }
