@@ -33,17 +33,9 @@
 
 namespace App\Models;
 
-class Branch extends Model
-{
-    protected $table = 'branches';
+use Illuminate\Database\Eloquent\Model as BaseModel;
 
-    /**
-     * Get related location
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function locations()
-    {
-        return $this->hasMany(Location::class);
-    }
+class Model extends BaseModel
+{
+    public $incrementing = false;
 }
