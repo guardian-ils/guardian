@@ -5,7 +5,7 @@
 - Access of super account (i.e. root)
 - Java 7 or above
 
-## Software would be installed
+## Softwares that would be installed
 - Nginx
 - PostgreSQL
 - ElasticSearch
