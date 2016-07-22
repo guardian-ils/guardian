@@ -21,6 +21,7 @@ class CreateBranchTable extends Migration
             $table->text('email')->nullable()->default(null);
             $table->timestamps();
 
+            $table->primary('id');
             $table->unique('name');
         });
     }

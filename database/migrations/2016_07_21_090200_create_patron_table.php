@@ -22,6 +22,8 @@ class CreatePatronTable extends Migration
             $table->date('birthday')->nullable();
             $table->uuid('branch_id')->references('id')->on('branches'); // home branch of the patron
             $table->timestamps();
+
+            $table->primary('id');
         });
     }
 

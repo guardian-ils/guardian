@@ -13,10 +13,12 @@ class CreateConfigTable extends Migration
     public function up()
     {
         Schema::create('configs', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->text('id');
             $table->text('name');
             $table->text('value');
             $table->timestamps();
+
+            $table->primary('id');
         });
     }
 

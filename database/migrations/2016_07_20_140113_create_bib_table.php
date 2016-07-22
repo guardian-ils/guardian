@@ -21,6 +21,7 @@ class CreateBibTable extends Migration
             $table->jsonb('marc');
             $table->timestamps();
 
+            $table->primary('id');
             $table->index(['title', 'author', 'call_number'], 'biblio_data_index');
         });
     }
