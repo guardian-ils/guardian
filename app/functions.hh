@@ -1,6 +1,6 @@
 <?hh
 
-if (!function_exists('config')) {
+if (!function_exists('preference')) {
     use App\Models\Config;
     use Illuminate\Support\Facades\Cache;
     use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -11,12 +11,18 @@ if (!function_exists('config')) {
      *
      * @return mixed|null
      */
-    function config(string $name, mixed $fallback = null): mixed
+    function preference(string $name, mixed $fallback = null): mixed
     {
         $value = env($name);
         if ($value !== null) {
             return $value;
         }
+
+        $value = config($name);
+        if ($value !== null) {
+            return $value;
+        }
+
         // Try to load from cache
         $value = Cache::get("config:{$name}");
         if ($value !== null) {

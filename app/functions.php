@@ -3,7 +3,7 @@ if (defined('HHVM_VERSION')) {
     include_once(__DIR__ . '/functions.hh');
 } else {
 
-    if (!function_exists('config')) {
+    if (!function_exists('preference')) {
         use App\Models\Config;
         use Illuminate\Support\Facades\Cache;
         use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -14,12 +14,18 @@ if (defined('HHVM_VERSION')) {
          *
          * @return mixed|null
          */
-        function config($name, $fallback = null)
+        function preference($name, $fallback = null)
         {
             $value = env($name);
             if ($value !== null) {
                 return $value;
             }
+
+            $value = config($name);
+            if ($value !== null) {
+                return $value;
+            }
+
             // Try to load from cache
             $value = Cache::get("config:{$name}");
             if ($value !== null) {
