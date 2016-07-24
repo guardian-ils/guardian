@@ -22,7 +22,9 @@ class CreateBibTable extends Migration
             $table->timestamps();
 
             $table->primary('id');
-            $table->index(['title', 'author', 'call_number'], 'biblio_data_index');
+            $table->index(['title'], 'biblio_title_index');
+            $table->index(['author'], 'biblio_author_index');
+            $table->index(['call_number'], 'biblio_call_number_index');
         });
     }
 
