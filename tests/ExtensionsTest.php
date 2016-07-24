@@ -13,4 +13,9 @@ class ExtensionsTest extends \TestCase
             $this->assertContains('pgsql', get_loaded_extensions());
         }
     }
+
+    public function testApc()
+    {
+        $this->assertContains('apc', get_loaded_extensions());
+    }
 }

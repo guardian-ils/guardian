@@ -14,7 +14,11 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-require __DIR__.'/../vendor/autoload.php';
+$loader = require __DIR__.'/../vendor/autoload.php';
+if (getenv('APP_ENV') !== 'testing') {
+    $cacheLoader = new \App\ApcClassLoader('class:', $loader);
+    $cacheLoader->register(true);
+}
 
 /*
 |--------------------------------------------------------------------------
