@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Parton extends Model
+class Patron extends Model
 {
     public function branch()
     {
