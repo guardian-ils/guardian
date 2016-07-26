@@ -9,6 +9,7 @@ php:
   - '5.6'
   - '7.0'
   - nightly
+  - hhvm-3.9
   - hhvm-3.12
   - hhvm-nightly
 
@@ -47,6 +48,7 @@ before_install:
   - export DB_USERNAME=travis
   - export DB_PASSWORD=""
   - sh -c "if [ '$DB' = 'hhvm-pgsql' ]; then ./install/install_hhvm_pgsql.sh; fi"
+  - sh -c "if [ '$DB' != 'hhvm-pgsql' ]; then echo extension = apc.so >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi"
 
 install:
   - composer install --prefer-dist
