@@ -72,7 +72,7 @@ return [
             'password' => env('DB_PASSWORD', ''),
             'charset'  => 'utf8',
             'prefix'   => '',
-            'schema'   => env('DB_SCHEMA', 'guardian'),
+            'schema'   => 'public',
         ],
 
         'sqlsrv' => [
