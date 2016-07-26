@@ -48,13 +48,15 @@ before_install:
   - export DB_USERNAME=travis
   - export DB_PASSWORD=""
   - sh -c "if [ '$DB' = 'hhvm-pgsql' ]; then ./install/install_hhvm_pgsql.sh; fi"
-  - sh -c "if [ '$DB' != 'hhvm-pgsql' ]; then echo extension = apc.so >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi"
+  - sh -c "if [ '$DB' != 'hhvm-pgsql' ]; then pecl install apc; echo extension = apc.so >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi"
 
 install:
   - composer install --prefer-dist
   - cp -pdf .env.example .env
   - php artisan key:generate
+  - php artisan migrate --pretend
   - php artisan migrate
 
 script:
+  - php artisan route:cache
   - ./vendor/bin/phpunit
