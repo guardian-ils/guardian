@@ -61,3 +61,4 @@ install:
 script:
   - php artisan route:cache
   - ./vendor/bin/phpunit
+  - php artisan migrate:rollback
