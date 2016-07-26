@@ -31,9 +31,6 @@ class CreateLocationTable extends Migration
      */
     public function down()
     {
-        Schema::table('locations', function (Blueprint $table) {
-           $table->dropUnique('name');
-        });
         Schema::drop('locations');
     }
 }

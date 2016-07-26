@@ -35,9 +35,6 @@ class CreateBibTable extends Migration
      */
     public function down()
     {
-        Schema::table('biblios', function (Blueprint $table) {
-            $table->dropIndex('biblio_data_index');
-        });
         Schema::drop('biblios');
     }
 }
