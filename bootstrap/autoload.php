@@ -15,7 +15,7 @@ define('LARAVEL_START', microtime(true));
 */
 
 $loader = require __DIR__.'/../vendor/autoload.php';
-if (getenv('APP_ENV') !== 'testing') {
+if (getenv('APP_ENV') !== 'testing' && in_array('apc', get_loaded_extensions())) {
     $cacheLoader = new \App\ApcClassLoader('class:', $loader);
     $cacheLoader->register(true);
 }
