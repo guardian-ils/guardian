@@ -33,9 +33,9 @@ if (!function_exists('preference')) {
         try {
             $modal = Config::findOrFail($name);
             $value = $modal->value;
-            Cache::set("config:{$name}", $value);
+            Cache::forever("config:{$name}", $value);
         } catch (ModelNotFoundException $e) {
-            Cache::set("config:{$name}", $fallback);
+            Cache::forever("config:{$name}", $fallback);
 
             return $fallback;
         }
