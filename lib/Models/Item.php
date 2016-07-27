@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Guardian\Models;
 
 class Item extends Model
 {

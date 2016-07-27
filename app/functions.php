@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Models\Config;
+use Guardian\Models\Config;
 
 if (!function_exists('apcu_fetch') && function_exists('apc_fetch')) {
     function apcu_fetch($key, &$success) {

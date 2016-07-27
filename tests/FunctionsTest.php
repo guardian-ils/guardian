@@ -34,7 +34,7 @@
 namespace App\Tests;
 
 use Illuminate\Support\Facades\Cache;
-use App\Models\Config;
+use Guardian\Models\Config;
 
 class FunctionsTest extends \TestCase
 {
