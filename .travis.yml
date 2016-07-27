@@ -49,7 +49,7 @@ before_install:
   - export DB_SCHEMA=public
   - sh -c "if [ '$DB' = 'hhvm-pgsql' ]; then ./install/install_hhvm_pgsql.sh; fi"
   - sh -c "if [ '$DB' != 'hhvm-pgsql' ]; then yes no | pecl install apc; fi"
-  - sh -c "if [ '$DB' != 'hhvm-pgsql' ]; then echo extension = xdebug.so >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; echo extension = apc.so >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi"
+  - sh -c "if [ '$DB' != 'hhvm-pgsql' ] &&  [ '$(php -r 'echo extension_loaded("xdebug");')' != '1' ]; then echo 'xdebug not loaded'; exit 1; fi"
 
 install:
   - composer install --prefer-dist -vvv -o
