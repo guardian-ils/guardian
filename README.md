@@ -1,7 +1,7 @@
 Guardian
 =================
 
-[![GPL 3+ License](https://img.shields.io/badge/License-GPL%203%2B-brightgreen.svg?style=plastic)](LICENSE.md)
+[![GPL 3+ License](https://img.shields.io/badge/License-GPL%203%2B-brightgreen.svg?style=plastic)](https://opensource.org/licenses/GPL-3.0)
 ![HHVM Available](https://img.shields.io/badge/hhvm-100%25-brightgreen.svg?style=plastic)
 ![Process](https://img.shields.io/badge/Process-building-lightgrey.svg?style=plastic)
 
@@ -14,7 +14,7 @@ If you like it, please give it a star and share it to the others.
 License
 --------------------
 Guardian is distributed under the GNU GPL version 3 or later.
-Please read the file [LICENSE.md](LICENSE.md) for more details.
+Please read the [page](https://opensource.org/licenses/GPL-3.0) from opensource.org for more details.
 
 Install
 --------------------
