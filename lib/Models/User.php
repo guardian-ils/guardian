@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Guardian\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
