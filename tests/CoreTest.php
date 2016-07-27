@@ -35,17 +35,17 @@ namespace App\Tests;
 
 use Illuminate\Support\Facades\Cache;
 use Guardian\Models\Config;
+use Guardian\Core;
 
-class FunctionsTest extends \TestCase
+class CoreTest extends \TestCase
 {
     public function testPreference()
     {
-        $this->assertTrue(function_exists('preference'));
-        $this->assertEquals(preference('APP_ENV'), env('APP_ENV'));
+        $this->assertEquals(Core::preference('APP_ENV'), env('APP_ENV'));
 
         $name = "hello_" . bin2hex(random_bytes(10));
-        $this->assertEquals("not set", preference($name, "not set"));
-        //$this->assertEquals("not set", preference($name, "not set (again)"));
+        $this->assertEquals("not set", Core::preference($name, "not set"));
+        $this->assertEquals("not set", Core::preference($name, "not set (again)"));
 
         // need to remove cache to reset default
         Cache::forget("config:{$name}");
@@ -56,7 +56,7 @@ class FunctionsTest extends \TestCase
         $hello->name = $name;
         $hello->value = "world";
         $hello->save();
-        $this->assertEquals("world", preference($name, "not set"));
+        $this->assertEquals("world", Core::preference($name, "not set"));
 
         // need to remove cache to reset default
         Cache::forget("config:{$name}");
@@ -65,6 +65,6 @@ class FunctionsTest extends \TestCase
         // delete config
         $hello->delete();
 
-        $this->assertEquals(preference($name, "not set"), "not set");
+        $this->assertEquals(Core::preference($name, "not set"), "not set");
     }
 }
