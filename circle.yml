@@ -1,0 +1,13 @@
+machine:
+  php:
+    version: 5.6.17
+
+dependencies:
+  pre:
+    - sed -i 's/^;//' /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
+
+test:
+  pre:
+    - cp -pdf .env.example .env
+    - php artisan key:generate
+    - vendor/bin/phpunit
