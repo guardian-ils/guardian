@@ -16,12 +16,14 @@ class CreatePatronTable extends Migration
             $table->uuid('id');
             $table->text('library_card_number');
             $table->text('name');
-            $table->text('address');
-            $table->text('phone')->nullable();
-            $table->text('email')->nullable();
+            $table->text('address')->nullable()->default(null);
+            $table->text('phone')->nullable()->default(null);
+            $table->text('email')->nullable()->default(null);
             $table->date('birthday')->nullable();
             $table->uuid('branch_id')->references('id')->on('branches'); // home branch of the patron
             $table->timestamps();
+
+            $table->primary('id');
         });
     }
 

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -17,6 +18,9 @@ class CreateLocationTable extends Migration
             $table->text('name');
             $table->uuid('branch_id')->references('id')->on('branches');
             $table->timestamps();
+
+            $table->primary('id');
+            $table->unique('name');
         });
     }
 
