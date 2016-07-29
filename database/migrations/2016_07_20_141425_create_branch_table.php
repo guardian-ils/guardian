@@ -33,9 +33,6 @@ class CreateBranchTable extends Migration
      */
     public function down()
     {
-        Schema::table('branches', function (Blueprint $table) {
-            $table->dropUnique('name');
-        });
         Schema::drop('branches');
     }
 }
