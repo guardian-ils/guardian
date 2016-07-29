@@ -13,7 +13,7 @@ class CreatePatronTable extends Migration
     public function up()
     {
         Schema::create('patrons', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->default(DB::raw('uuid_generate_v4()'));
             $table->text('library_card_number');
             $table->text('name');
             $table->text('address')->nullable()->default(null);
