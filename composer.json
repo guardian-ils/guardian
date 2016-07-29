@@ -1,9 +1,19 @@
 {
   "name": "guardian-ils/guardian",
   "description": "Guardian ILS",
-  "keywords": ["ils"],
-  "license": "MIT",
+  "keywords": ["ils", "library system"],
+  "license": "GPL-3.0",
   "type": "project",
+  "support": {
+    "issues": "https://github.com/guardian-ils/Guardian/issues",
+    "source": "https://github.com/guardian-ils/Guardian"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/michaelachrisco/mailthief"
+    }
+  ],
   "require": {
     "php": ">=5.5.9",
     "laravel/framework": "5.1.*",
