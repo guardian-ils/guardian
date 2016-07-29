@@ -13,7 +13,9 @@ class BranchEndpointTest extends \TestCase
         $response = $this->call('GET', '/api/v1/branches');
         $this->assertEquals(200, $response->status());
         $content = $this->shouldBeJsonEndpoint($response);
-        $this->assertInternalType('array', $content['data']);
+        $this->assertTrue(isset($content->data));
+        $this->assertTrue(isset($content->result));
+        $this->assertEquals('success', $content->result);
     }
 
     /**
@@ -22,6 +24,7 @@ class BranchEndpointTest extends \TestCase
     public function testAddingBranch()
     {
         $data = [
+            '_token' => csrf_token(),
             'name' => 'Testing'
         ];
         $response = $this->call('POST', '/api/v1/branches', $data);
