@@ -15,9 +15,17 @@ define('LARAVEL_START', microtime(true));
 */
 
 $loader = require __DIR__.'/../vendor/autoload.php';
-if (getenv('APP_ENV') !== 'testing' && in_array('apc', get_loaded_extensions())) {
-    $cacheLoader = new \App\ApcClassLoader('class:', $loader);
-    $cacheLoader->register(true);
+if (getenv('APP_ENV') !== 'testing') {
+    $cacheLoader = null;
+    if (function_exists('apcu_fetch')) {
+        $cacheLoader = new \Symfony\Component\ClassLoader\ApcClassLoader('guardian', $loader);
+    } elseif (extension_loaded('xcache')) {
+        $cacheLoader = new \Symfony\Component\ClassLoader\XcacheClassLoader('guardian', $loader);
+    } elseif (extension_loaded('wincache')) {
+        $cacheLoader = new \Symfony\Component\ClassLoader\WinCacheClassLoader('guardian', $loader);
+    }
+    if ($cacheLoader !== null)
+        $cacheLoader->register(true);
 }
 
 /*

@@ -14,7 +14,8 @@
     "php": ">=5.5.9",
     "laravel/framework": "5.1.*",
     "elasticquent/elasticquent": "~1.0",
-    "doctrine/dbal": "~2.5"
+    "doctrine/dbal": "~2.5",
+    "symfony/class-loader": "~3.0"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",
