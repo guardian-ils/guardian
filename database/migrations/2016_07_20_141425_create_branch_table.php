@@ -14,7 +14,7 @@ class CreateBranchTable extends Migration
     public function up()
     {
         Schema::create('branches', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->default(DB::raw('uuid_generate_v4()'));
             $table->text('name');
             $table->text('address')->nullable()->default(null);
             $table->text('phone')->nullable()->default(null);
@@ -33,9 +33,6 @@ class CreateBranchTable extends Migration
      */
     public function down()
     {
-        Schema::table('branches', function (Blueprint $table) {
-            $table->dropUnique('name');
-        });
         Schema::drop('branches');
     }
 }

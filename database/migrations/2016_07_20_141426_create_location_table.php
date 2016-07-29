@@ -14,7 +14,7 @@ class CreateLocationTable extends Migration
     public function up()
     {
         Schema::create('locations', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->default(DB::raw('uuid_generate_v4()'));
             $table->text('name');
             $table->uuid('branch_id')->references('id')->on('branches');
             $table->timestamps();
@@ -31,9 +31,6 @@ class CreateLocationTable extends Migration
      */
     public function down()
     {
-        Schema::table('locations', function (Blueprint $table) {
-           $table->dropUnique('name');
-        });
         Schema::drop('locations');
     }
 }

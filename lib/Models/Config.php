@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace Guardian\Models;
 
 class Config extends Model
 {
+    public $primaryKey = 'name';
     protected $table = 'configs';
 }

@@ -14,7 +14,7 @@ class CreateBibTable extends Migration
     public function up()
     {
         Schema::create('biblios', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->default(DB::raw('uuid_generate_v4()'));
             $table->text('title');
             $table->text('author')->nullable()->default(null);
             $table->text('call_number');
@@ -35,9 +35,6 @@ class CreateBibTable extends Migration
      */
     public function down()
     {
-        Schema::table('biblios', function (Blueprint $table) {
-            $table->dropIndex('biblio_data_index');
-        });
         Schema::drop('biblios');
     }
 }

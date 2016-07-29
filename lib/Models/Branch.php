@@ -31,7 +31,7 @@
  * @license  http://opensource.org/licenses/MIT MIT License
  */
 
-namespace App\Models;
+namespace Guardian\Models;
 
 class Branch extends Model
 {

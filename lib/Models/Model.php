@@ -31,14 +31,11 @@
  * @license  http://opensource.org/licenses/MIT MIT License
  */
 
-namespace App\Tests;
+namespace Guardian\Models;
 
+use Illuminate\Database\Eloquent\Model as BaseModel;
 
-class FunctionsTest extends \TestCase
+class Model extends BaseModel
 {
-    public function testPreference()
-    {
-        $this->assertTrue(function_exists('preference'));
-        $this->assertEquals(preference('APP_ENV'), env('APP_ENV'));
-    }
+    public $incrementing = false;
 }
