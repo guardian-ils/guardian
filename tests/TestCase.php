@@ -34,10 +34,9 @@ class TestCase extends BaseTestCase
      */
     protected function shouldBeJsonEndpoint(Response $response)
     {
-        $this->assertEquals('application/json', $response->status());
+        $this->assertEquals('application/json', $response->headers->get('content-type'));
         $content = json_decode($response->content());
-        $this->assertInternalType('array', $content);
-        $this->assertArraySubset(['result' => 'success'], $content);
+        $this->assertEquals(json_last_error(), JSON_ERROR_NONE);
         return $content;
     }
 }
