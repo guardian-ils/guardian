@@ -47,6 +47,7 @@ before_install:
   - export DB_USERNAME=travis
   - export DB_PASSWORD=""
   - export DB_SCHEMA=public
+  - psql -U "$DB_USERNAME" --host="$DB_HOST" "$DB_DATABASE" -c 'CREATE EXTENSION "uuid-ossp";'
   - sh -c "if [ '$DB' = 'hhvm-pgsql' ]; then ./install/install_hhvm_pgsql.sh; fi"
   - sh -c "if [ '$DB' != 'hhvm-pgsql' ]; then ./install/install_php_apc.sh; fi"
   - sh -c "if [ '$DB' != 'hhvm-pgsql' ] &&  [ '$(php -r 'echo extension_loaded("xdebug");')' != '1' ]; then echo 'xdebug not loaded'; exit 1; fi"
