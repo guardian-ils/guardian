@@ -31,40 +31,19 @@
  * @license  http://opensource.org/licenses/MIT MIT License
  */
 
-namespace App\Tests;
+namespace Guardian\Models;
 
-use Illuminate\Support\Facades\Cache;
-use App\Models\Config;
-
-class FunctionsTest extends \TestCase
+class Branch extends Model
 {
-    public function testPreference()
+    protected $table = 'branches';
+
+    /**
+     * Get related location
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function locations()
     {
-        $this->assertTrue(function_exists('preference'));
-        $this->assertEquals(preference('APP_ENV'), env('APP_ENV'));
-
-        $name = "hello_" . bin2hex(random_bytes(10));
-        $this->assertEquals("not set", preference($name, "not set"));
-        //$this->assertEquals("not set", preference($name, "not set (again)"));
-
-        // need to remove cache to reset default
-        Cache::forget("config:{$name}");
-        $this->assertNull(Cache::get("config:{$name}"));
-
-        // save preference to config
-        $hello = new Config;
-        $hello->name = $name;
-        $hello->value = "world";
-        $hello->save();
-        $this->assertEquals("world", preference($name, "not set"));
-
-        // need to remove cache to reset default
-        Cache::forget("config:{$name}");
-        $this->assertNull(Cache::get("config:{$name}"));
-
-        // delete config
-        $hello->delete();
-
-        $this->assertEquals(preference($name, "not set"), "not set");
+        return $this->hasMany(Location::class);
     }
 }
