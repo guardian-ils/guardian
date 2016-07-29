@@ -8,12 +8,6 @@
     "issues": "https://github.com/guardian-ils/Guardian/issues",
     "source": "https://github.com/guardian-ils/Guardian"
   },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/michaelachrisco/mailthief"
-    }
-  ],
   "require": {
     "php": ">=5.5.9",
     "laravel/framework": "5.1.*",
