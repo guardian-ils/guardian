@@ -13,7 +13,7 @@ class CreateItemTable extends Migration
     public function up()
     {
         Schema::create('items', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->default(DB::raw('uuid_generate_v4()'));
             $table->text('barcode')->nullable()->default(null);
             $table->uuid('biblio_id')->references('id')->on('biblios');;
             $table->integer('copy')->nullable()->default(null);
