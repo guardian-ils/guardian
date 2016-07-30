@@ -149,6 +149,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Guardian Service Provider(s)
+         */
+        Guardian\Providers\ApiServiceProvider::class,
+
     ],
 
     /*
