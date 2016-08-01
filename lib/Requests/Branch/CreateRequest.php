@@ -30,4 +30,9 @@ class CreateRequest extends Request
             'phone' => 'alpha_dash'
         ];
     }
+
+    public function wantsJson()
+    {
+        return true;
+    }
 }

@@ -46,4 +46,6 @@ class Branch extends Model
     {
         return $this->hasMany(Location::class);
     }
+
+    protected $fillable = ['name'];
 }
