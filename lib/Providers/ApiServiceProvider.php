@@ -17,9 +17,6 @@ class ApiServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        if (! $this->app->routesAreCached()) {
-            require __DIR__.'/../routes.php';
-        }
     }
 
     /**
@@ -29,6 +26,9 @@ class ApiServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
+        if (! $this->app->routesAreCached()) {
+            require __DIR__.'/../routes.php';
+        }
     }
 
 }
