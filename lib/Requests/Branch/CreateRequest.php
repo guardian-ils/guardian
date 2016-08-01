@@ -24,7 +24,7 @@ class CreateRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|unique|string',
+            'name' => 'required|unique:branches|string',
             'email' => 'email',
             'address' => 'string',
             'phone' => 'alpha_dash'
