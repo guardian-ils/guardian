@@ -2,6 +2,7 @@
 
 namespace App\Tests\API;
 
+use Illuminate\Support\Facades\DB;
 
 class BranchEndpointTest extends \TestCase
 {
@@ -31,5 +32,10 @@ class BranchEndpointTest extends \TestCase
         $this->assertEquals(201, $response->status());
         $this->shouldBeJsonEndpoint($response);
         $this->seeInDatabase('branches', ['name' => 'Testing']);
+    }
+
+    public function tearDown()
+    {
+        DB::table('branches')->delete();
     }
 }
