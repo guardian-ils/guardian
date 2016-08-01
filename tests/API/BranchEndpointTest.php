@@ -30,5 +30,6 @@ class BranchEndpointTest extends \TestCase
         $response = $this->call('POST', '/api/v1/branches', $data);
         $this->assertEquals(201, $response->status());
         $this->shouldBeJsonEndpoint($response);
+        $this->seeInDatabase('branches', ['name' => 'Testing']);
     }
 }
