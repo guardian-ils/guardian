@@ -8,18 +8,13 @@
     "issues": "https://github.com/guardian-ils/Guardian/issues",
     "source": "https://github.com/guardian-ils/Guardian"
   },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/michaelachrisco/mailthief"
-    }
-  ],
   "require": {
     "php": ">=5.5.9",
     "laravel/framework": "5.1.*",
     "elasticquent/elasticquent": "~1.0",
     "doctrine/dbal": "~2.5",
     "symfony/class-loader": "~3.0",
+    "symfony/polyfill-apcu": "~1.2.0",
     "predis/predis": "~1.0"
   },
   "require-dev": {

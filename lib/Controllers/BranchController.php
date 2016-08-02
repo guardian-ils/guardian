@@ -2,27 +2,37 @@
 
 namespace Guardian\Controllers;
 
-use Illuminate\Http\Response;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
+use Guardian\Models\Branch;
+use Guardian\Requests\Branch\CreateRequest;
 
 class BranchController extends Controller {
 
-  public static function listing() {
-    $content = [
-      'result' => 'success',
-      'data' => [],
-    ];
-    return (new Response(json_encode($content), 200))
-                ->header('Content-Type', 'application/json');
-  }
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index() {
+        $branches = Branch::all();
+        $content = [
+            'result' => 'success',
+            'data' => $branches->toJson(),
+        ];
+        return response()->json($content);
+    }
 
-  public static function create() {
-    $content = [
-      'result' => 'success',
-      'data' => [],
-    ];
-    return (new Response(json_encode($content), 201))
-                ->header('Content-Type', 'application/json');
-  }
+    public function store(CreateRequest $request) {
+        try {
+            $branch = Branch::create($request->getForm()->all());
+            $branch->save();
+            $content = ['result' => 'success'];
+            $status = 201;
+        } catch (\Exception $e) {
+            $content = ['result' => 'failed'];
+            $status = 500;
+            Log::error($e);
+        }
+
+        return response()->json($content)->setStatusCode($status);
+    }
 
 }
