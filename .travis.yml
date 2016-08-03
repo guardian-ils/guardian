@@ -4,6 +4,10 @@ sudo: required
 dist: trusty
 group: edge
 
+cache:
+  directories:
+    - $HOME/.composer
+
 php:
   - '5.5'
   - '5.6'
@@ -48,8 +52,8 @@ before_install:
   - export DB_PASSWORD=""
   - export DB_SCHEMA=public
   - psql -U "$DB_USERNAME" --host="$DB_HOST" "$DB_DATABASE" -c 'CREATE EXTENSION "uuid-ossp";'
-  - sh -c "if [ '$DB' = 'hhvm-pgsql' ]; then ./install/install_hhvm_pgsql.sh; fi"
-  - sh -c "if [ '$DB' != 'hhvm-pgsql' ]; then ./install/install_php_apc.sh; fi"
+  - sh -c "if [ '$DB' = 'hhvm-pgsql' ]; then ./.travis/install_hhvm_pgsql.sh; fi"
+  - sh -c "if [ '$DB' != 'hhvm-pgsql' ]; then ./.travis/install_php_apc.sh; fi"
   - sh -c "if [ '$DB' != 'hhvm-pgsql' ] &&  [ '$(php -r 'echo extension_loaded("xdebug");')' != '1' ]; then echo 'xdebug not loaded'; exit 1; fi"
 
 install:
@@ -57,9 +61,10 @@ install:
   - cp -pdf .env.example .env
   - php artisan key:generate
   - php artisan migrate --pretend
-  - php artisan migrate
 
 script:
+  - php artisan migrate
+  - php artisan config:cache
   - php artisan route:cache
   - ./vendor/bin/phpunit -v
   - php artisan migrate:rollback
