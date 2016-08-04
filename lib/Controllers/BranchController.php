@@ -2,12 +2,12 @@
 
 namespace Guardian\Controllers;
 
-use Guardian\Helper\Uuid;
-use Guardian\Requests\Branch\UpdateRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 use Guardian\Models\Branch;
+use Guardian\Requests\Branch\UpdateRequest;
 use Guardian\Requests\Branch\CreateRequest;
+use Ramsey\Uuid\Uuid;
 
 class BranchController extends Controller {
 
@@ -39,14 +39,14 @@ class BranchController extends Controller {
     }
 
     /**
-     * @param $branch Branch ID
+     * @param string $branch Branch ID
      * @param UpdateRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function update($branch, UpdateRequest $request)
     {
-        if (!Uuid::valid($branch)) {
+        if (!Uuid::isValid($branch)) {
             return response()->json(['result' => 'failed'])->setStatusCode(422);
         }
 
@@ -65,13 +65,13 @@ class BranchController extends Controller {
     }
 
     /**
-     * @param $branch Branch ID from Url
+     * @param string $branch Branch ID from Url
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($branch)
     {
-        if (!Uuid::valid($branch)) {
+        if (!Uuid::isValid($branch)) {
             return response()->json(['result' => 'failed'])->setStatusCode(422);
         }
 

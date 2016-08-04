@@ -2,7 +2,7 @@
 
 namespace App\Tests\API;
 
-use Guardian\Helper\Uuid;
+use Ramsey\Uuid\Uuid;
 
 class BranchEndpointTest extends \TestCase
 {
