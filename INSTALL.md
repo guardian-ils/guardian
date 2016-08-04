@@ -36,7 +36,7 @@ sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get install -y php5-fpm nginx postgresql-9.4 openjdk-7-jr
+sudo apt-get install -y php5-fpm nginx postgresql-9.4 openjdk-7-jre
 ```
 
 ##### Ubuntu 16.04
@@ -46,7 +46,7 @@ use PPA anymore.
 
 ```
 sudo apt-get update
-sudo apt-get install -y php5-fpm nginx postgresql-9.4 openjdk-7-jr
+sudo apt-get install -y php5-fpm nginx postgresql-9.4 openjdk-7-jre
 ```
 
 
@@ -56,7 +56,7 @@ in default distro installation). Switch to the user. Then
 create your database.
 
 The below steps assumes your Linux is using `sudo`
-permisison model. If not, just login to root and run them.
+permission model. If not, just login to root and run them.
 
 ```
 export DB_USER="some_username"
@@ -90,7 +90,7 @@ cd Guardian
 
 ### 2. Configure Laravel environment
 
-Edit copy the [.env.exmaple](.env.example) file as `.env`.
+Edit copy the [.env.example](.env.example) file as `.env`.
 ```
 cp .env.example .env
 ```
