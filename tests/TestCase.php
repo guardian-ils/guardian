@@ -28,15 +28,31 @@ class TestCase extends BaseTestCase
 
     /**
      * Check endpoint response is JSON Response
-     * @param Response $response
      *
      * @return array Content of decoded data
      */
-    protected function shouldBeJsonEndpoint(Response $response)
+    protected function shouldBeJsonEndpoint()
     {
+        $response = $this->response;
+        $this->assertInstanceOf(Response::class, $response);
         $this->assertEquals('application/json', $response->headers->get('content-type'));
-        $content = json_decode($response->content());
+        $content = json_decode($response->content(), true);
         $this->assertEquals(json_last_error(), JSON_ERROR_NONE);
+        $this->assertTrue($content !== false);
         return $content;
+    }
+
+    /**
+     * @param string $method
+     * @param string $uri
+     * @param array $data
+     * @param array $headers
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function json($method, $uri, array $data = [], array $headers = [])
+    {
+        parent::json($method, $uri, $data, $headers);
+        return $this->response;
     }
 }
