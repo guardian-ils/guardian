@@ -5,6 +5,6 @@ Route::group([
     'prefix' => 'api/v1'
 ], function () {
     Route::resource('branches', 'BranchController', [
-        'only' => ['index', 'store']
+        'only' => ['index', 'store', 'update', 'destroy']
     ]);
 });
