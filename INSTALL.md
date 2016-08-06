@@ -22,14 +22,14 @@ These steps are tested for Linux. If you're using Mac or Windows, we don't offic
 
 ## Prepare Dependencies
 
-### 1. Install the Software Depenencies
+### 1. Install the Software Dependencies
 
 #### Ubuntu
 
 ##### Ubuntu 14.04
 
 Ubuntu 14.04 provides PHP 5.5 by default. However, you'd need PPA to properly
-install PosgreSQL. You can simply run the command below:
+install PostgreSQL. You can simply run the commands below:
 
 ```
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
@@ -55,7 +55,7 @@ Find out your PostgreSQL superuser (It is usually `postgres`
 in default distro installation). Switch to the user. Then
 create your database.
 
-The below steps assumes your Linux is using `sudo`
+The below steps assume your Linux is using `sudo`
 permission model. If not, just login to root and run them.
 
 ```
