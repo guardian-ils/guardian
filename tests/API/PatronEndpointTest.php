@@ -18,14 +18,6 @@ class PatronEndpointTest extends \TestCase
         static::$branch_id = Uuid::uuid4()->toString();
     }
 
-    private function str_random() {
-        static $_str;
-        if (!isset($_str)) {
-            $_str = str_random(6);
-        }
-        return $_str;
-    }
-
     /**
      * Listing all the patron.
      */
@@ -35,8 +27,8 @@ class PatronEndpointTest extends \TestCase
         $response = $this->response;
         $this->assertEquals(200, $response->status());
         $content = $this->shouldBeJsonEndpoint();
-        $this->assertTrue(isset($content['data']));
-        $this->assertTrue(isset($content['result']));
+        $this->assertArrayHasKey('data', $content);
+        $this->assertArrayHasKey('result', $content);
         $this->assertEquals('success', $content['result']);
     }
 
@@ -71,8 +63,8 @@ class PatronEndpointTest extends \TestCase
     {
         $this->get('/api/v1/patrons');
         $content = $this->shouldBeJsonEndpoint();
-        $this->assertTrue(isset($content['data']));
-        $this->assertTrue(isset($content['result']));
+        $this->assertArrayHasKey('data', $content);
+        $this->assertArrayHasKey('result', $content);
         $this->assertTrue(sizeof($content['data']) > 0);
         $data = $content['data'][0];
         $this->assertEquals('Reader '.static::$str, $data['name']);
