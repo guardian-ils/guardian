@@ -1,66 +1,32 @@
 {
   "name": "guardian-ils/guardian",
-  "description": "Guardian ILS",
+  "description": "Guardian ILS. A provider for building a Laravel 5.5 library system.",
   "keywords": ["ils", "library system"],
   "license": "GPL-3.0",
-  "type": "project",
+  "type": "library",
   "support": {
     "issues": "https://github.com/guardian-ils/Guardian/issues",
     "source": "https://github.com/guardian-ils/Guardian"
   },
   "require": {
-    "php": ">=5.5.9",
-    "laravel/framework": "5.1.*",
-    "doctrine/dbal": "~2.5",
-    "predis/predis": "~1.0",
-    "elasticquent/elasticquent": "~1.0",
-    "ramsey/uuid": "~3.5",
-    "symfony/class-loader": "~3.0",
-    "symfony/polyfill-apcu": "~1.2.0"
+    "php": ">=7.0.0",
+    "laravel/framework": "5.5.*",
+    "ramsey/uuid": "~3.5"
   },
   "require-dev": {
-    "fzaninotto/faker": "~1.4",
-    "mockery/mockery": "0.9.*",
-    "phpunit/phpunit": ">4.0",
-    "tightenco/mailthief": "~0.2.1"
+    "phpunit/phpunit": ">4.0"
   },
   "autoload": {
-    "classmap": [
-      "database"
-    ],
     "psr-4": {
-      "App\\": "app/",
-      "Guardian\\": "lib/"
-    },
-    "files": [
-      "app/functions.php"
-    ]
+      "Guardian\\": "src/"
+    }
   },
   "autoload-dev": {
     "classmap": [
       "tests/TestCase.php"
     ]
   },
-  "suggest": {
-    "league/flysystem-aws-s3-v3": "Use AWS S3 Storage to store upload file",
-    "league/flysystem-rackspace": "Use Rackspace Cloud Files to store upload file",
-    "league/flysystem-azure": "Use Microsoft Azure Storage to store upload file"
-  },
   "scripts": {
-    "post-root-package-install": [
-      "php -r \"copy('.env.dev', '.env');\""
-    ],
-    "post-create-project-cmd": [
-      "php artisan key:generate"
-    ],
-    "post-install-cmd": [
-      "Illuminate\\Foundation\\ComposerScripts::postInstall",
-      "php artisan optimize"
-    ],
-    "post-update-cmd": [
-      "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-      "php artisan optimize"
-    ]
   },
   "config": {
     "preferred-install": "dist"

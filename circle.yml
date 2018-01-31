@@ -9,5 +9,4 @@ dependencies:
 test:
   pre:
     - cp -pdf .env.example .env
-    - php artisan key:generate
     - vendor/bin/phpunit
